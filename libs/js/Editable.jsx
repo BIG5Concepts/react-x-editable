@@ -46,6 +46,8 @@ export default class Editable extends Component {
         onInputChange : props.onInputChange ?  props.onInputChange : null,
         //handle callback if provided
         handleSubmit : props.handleSubmit ? props.handleSubmit : null,
+        //  handle cancel if provided
+        handleCancel: props.handleCancel ? props.handleCancel : null,
         //for internal use
         editable: false,
         valueUpdated : false,
@@ -97,7 +99,7 @@ export default class Editable extends Component {
       this.value = this.newValue;
       this.setEditable(false);
       this.setState({ valueUpdated : true});
-      let {handleSubmit} = this.state
+      const {handleSubmit} = this.state
       if(handleSubmit)
         handleSubmit(this)
     }
@@ -106,6 +108,9 @@ export default class Editable extends Component {
     this.setEditable(false);
     //reset validation
     this.validation = {};
+    const {handleCancel} = this.state
+    if(handleCancel)
+      handleCancel(this)
   }
   setValueToAnchor(value, event){
     this.newValue = value;
@@ -263,6 +268,9 @@ Editable.propTypes = {
 
     //handle callback if provided
     handleSubmit : PropTypes.func,
+
+    //handle cancel if provided
+    handleCancel: PropTypes.func,
 
     // only used when mode is popup
     title : PropTypes.string,
