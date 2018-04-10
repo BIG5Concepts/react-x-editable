@@ -105,6 +105,8 @@ export default class App extends Component {
                             mode="popup"
                             title="Please enter username"
                             value={"ni3galave"}
+                            handleSubmit={() => console.log("I handled a submit")}
+                            handleCancel={() => console.log("Oh, noo...")}
                             placement="right"
                             showButtons={true}
                           />
@@ -427,6 +429,7 @@ export default class App extends Component {
                             value="X editable using react bootstrap"
                             title="Enter description"
                             handleSubmit={this.handleSubmit}
+                            handleCancel={() => console.log("The textarea isn't seen at all...")}
                           />
                         <Panel collapsible expanded={this.state.simpleTexareatFieldInline} >
                                             <pre> {`<Editable
