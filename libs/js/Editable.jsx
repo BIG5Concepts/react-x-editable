@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {
-  Button,
   Overlay,
   Popover,
   FormGroup,
@@ -11,6 +10,7 @@ import {
   FormControl,
   HelpBlock
 } from 'react-bootstrap';
+import {Button} from 'reactstrap'
 
 import Text from './Text';
 import Textarea from './Textarea';
@@ -27,6 +27,7 @@ export default class Editable extends Component {
         name : props.name,
         mode : props.mode ? props.mode : "inline",
         disabled : props.disabled ? props.disabled : false,
+        inlineComponentStyle: props.inlineComponentStyle,
         showButtons : props.showButtons != undefined ? props.showButtons : true,
         validate : props.validate ? props.validate : undefined,
         display : props.display ? props.display : undefined,
@@ -151,9 +152,9 @@ export default class Editable extends Component {
     if(this.state.showButtons){
       return (
         <div className="editable-btn" key={this.props.name+"editable-btn"}>
-          <Button bsStyle="success" bsSize="xsmall" onClick={this.onSubmit.bind(this)} key={"btn-success"+this.props.name}>
+          <Button color="primary" size="sm" onClick={this.onSubmit.bind(this)} key={"btn-success"+this.props.name}>
             <i className="fa fa-check" key={"icon-fa-check"+this.props.name}></i></Button>
-          <Button bsStyle="danger" bsSize="xsmall" onClick={this.onCancel.bind(this)} key={"btn-danger"+this.props.name}>
+          <Button size="sm" onClick={this.onCancel.bind(this)} key={"btn-danger"+this.props.name}>
               <i className="fa fa-times" key={"icon-fa-times"+this.props.name}></i>
           </Button>
         </div>
@@ -226,8 +227,9 @@ export default class Editable extends Component {
 
   render() {
     const { editable, title, validate, showButtons,
-            defaultValue, dataType, mode, disabled } = this.state;
-    const editableContainerClass = (disabled) ? "editable-disabled" : "editable-container";
+            defaultValue, dataType, mode, disabled, inlineComponentStyle } = this.state;
+    let editableContainerClass = (disabled) ? "editable-disabled" : "editable-container";
+    editableContainerClass += (inlineComponentStyle) ? " inline-component-style" : ""
     return (
       <div className={editableContainerClass} key={this.props.name} >
         { !(mode == 'inline' && editable)
@@ -248,6 +250,7 @@ export default class Editable extends Component {
 
 Editable.defaultProps = {
   showButtons : true,
+  inlineComponentStyle: true,
   dataType : "text",
   mode : "inline",
   disabled : false,
@@ -260,6 +263,7 @@ Editable.propTypes = {
     dataType : PropTypes.string.isRequired,
     name : PropTypes.string.isRequired,
     mode : PropTypes.string,
+    inlineComponentStyle: PropTypes.bool,
     showButtons : PropTypes.bool,
     disabled : PropTypes.bool,
     validate : PropTypes.func,

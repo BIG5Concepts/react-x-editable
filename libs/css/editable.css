@@ -14,3 +14,14 @@
   color: gray;
   cursor: default;
 }
+
+.inline-component-style > .form-group{
+  display: inline;
+  width: calc(100% - 78px);
+  float: left;
+}
+
+.inline-component-style > .editable-btn{
+  display: inline;
+  float: right;
+}
